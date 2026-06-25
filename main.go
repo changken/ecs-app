@@ -81,6 +81,7 @@ func handleVersion(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{
 		"version":    os.Getenv("APP_VERSION"),
 		"git_commit": os.Getenv("GIT_COMMIT"),
+		"deploy":     "canary-test",
 	})
 }
 
