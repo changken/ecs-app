@@ -1,7 +1,7 @@
 FROM golang:1.23-alpine AS builder
 WORKDIR /app
-COPY main.go .
-RUN go mod init app && go build -o server .
+COPY go.mod main.go .
+RUN go build -o server .
 
 FROM alpine:3.21
 ARG GIT_COMMIT=unknown
