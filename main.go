@@ -76,6 +76,14 @@ func handleHealth(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "ok")
 }
 
+func handleVersion(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"version":    os.Getenv("APP_VERSION"),
+		"git_commit": os.Getenv("GIT_COMMIT"),
+	})
+}
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -83,6 +91,7 @@ func main() {
 	}
 	http.HandleFunc("/", handleRoot)
 	http.HandleFunc("/health", handleHealth)
+	http.HandleFunc("/version", handleVersion)
 	log.Printf("ECS Fargate demo app listening on :%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
