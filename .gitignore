@@ -1,0 +1,5 @@
+# Go build output
+server
+
+# macOS
+.DS_Store
